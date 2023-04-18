@@ -8,6 +8,15 @@ class StoriesController < ApplicationController
     @stories = @column.stories.all
   end
 
+  def filter_by_status_and_date
+    @column = Column.find(params[:column_id])
+    statuses = params[:statuses] || []
+    dates = params[:dates] || []
+
+    @stories = @column.stories.filter_by_status_and_date(statuses, dates)
+
+    render json: @board_column_stories
+  end
   # GET /stories/1 or /stories/1.json
   def show
   end

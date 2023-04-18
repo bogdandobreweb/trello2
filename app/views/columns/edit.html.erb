@@ -1,0 +1,10 @@
+<h1>Editing column</h1>
+
+<%= render "form", column: @column %>
+
+<br>
+
+<div>
+  <%= link_to "Show Column", board_column_path(@board, @column) %> |
+  <%= link_to "Back to columns", board_columns_path(@board) %>
+</div>

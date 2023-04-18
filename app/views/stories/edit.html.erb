@@ -1,0 +1,10 @@
+<h1>Editing story</h1>
+
+<%= render "form", story: @story %>
+
+<br>
+
+<div>
+  <%= link_to "Show this story", board_column_story_path(@board, @column, @story) %> |
+  <%= link_to "Back to stories", stories_path %>
+</div>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @column %>
+
+<div>
+  <%= link_to "Edit this column", edit_board_column_path(@board) %> |
+  <%= link_to "Back to columns", board_columns_path %>
+
+  <%= button_to "Destroy this column", @board_column, method: :delete %>
+</div>

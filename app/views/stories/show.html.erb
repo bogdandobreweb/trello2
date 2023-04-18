@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @story %>
+
+<div>
+  <%= link_to "Edit this story", edit_board_column_story_path(@story) %> |
+  <%= link_to "Back to stories", board_column_stories_path %>
+
+  <%= button_to "Destroy this story", @board_column_story, method: :delete %>
+</div>

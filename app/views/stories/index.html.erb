@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Stories</h1>
+
+<div id="stories">
+  <% @stories.each do |story| %>
+    <%= render story %>
+    <p>
+      <%= link_to "Show this story", [@board, @column, story] %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New story", new_board_column_story_path(@column) %>
+<br>
+<%= link_to "Back to Columns", board_columns_path(@column.board_id) %>
+

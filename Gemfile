@@ -13,6 +13,7 @@ gem 'factory_bot_rails'
 gem 'acts_as_paranoid'
 gem 'paper_trail'
 gem 'bullet'
+gem 'lograge'
 
 gem 'rails-controller-testing'
 

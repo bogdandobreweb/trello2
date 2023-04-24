@@ -3,9 +3,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.1"
 
+gem 'devise'
+gem 'simple_token_authentication', '~> 1.0' # see semver.org
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
+gem 'factory_bot_rails'
+
+gem 'acts_as_paranoid'
+gem 'paper_trail'
+gem 'bullet'
+
+gem 'rails-controller-testing'
+
+gem 'rspec'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -70,3 +81,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "rspec-rails", "~> 6.0"
+
+gem "pundit", "~> 2.3"
+
+gem "sidekiq", "~> 7.0"

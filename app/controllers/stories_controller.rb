@@ -1,3 +1,5 @@
+require_relative '../services/stories_retriever.rb'
+
 class StoriesController < ApplicationController
   before_action :get_board_and_column
   before_action :set_story, only: %i[ show edit update destroy ]
@@ -5,20 +7,62 @@ class StoriesController < ApplicationController
   # GET /stories or /stories.json
   def index
     @column = Column.find(params[:column_id])
-    @stories = @column.stories.all
+    
+
+    status = []
+    due_date = []
+    column = :title
+    type = :asc
+
+    if params[:status] || params[:due_date] || params[:column] || params[:type]
+      if params[:status].present?
+        status = params[:status].split(',')
+      end
+      if params[:due_date].present?
+        due_date = params[:due_date].split(',')
+      end
+      if params[:column].present?
+        column = params[:column]
+      end
+      if params[:type].present?
+        type = params[:type]
+      end
+
+      @stories = StoriesRetriever.new.filter_order(
+          params[:column_id],
+          statuses: status,
+          dates: due_date,
+          order_column: column,
+          order_type: type
+          )
+    else
+      @stories = @column.stories.all
+    end
+    # @stories = StoriesRetriever.new.filter_by_status_and_date(
+    #   params[:column_id],
+    #   statuses: 1,
+    #   dates: (Date.today - 30)..(Date.today + 30)
+    # )
+
+    # @stories = StoriesRetriever.new.order_by(
+    #   params[:column_id],
+    #   order_column: :title,
+    #   order_type: :desc
+    # )
+
+    render json: @stories, status: :ok
+
+    # @stories = Story.reorder(created_at: :asc)
   end
 
-  def filter_by_status_and_date
-    @column = Column.find(params[:column_id])
-    statuses = params[:statuses] || []
-    dates = params[:dates] || []
-
-    @stories = @column.stories.filter_by_status_and_date(statuses, dates)
-
-    render json: @board_column_stories
-  end
-  # GET /stories/1 or /stories/1.json
   def show
+    @story = @column.stories.find_by(id: params[:id])
+    if @story
+      render json: @story
+    else
+      render json: { error: "Story not found" }, status: :not_found
+    end
+
   end
 
   # GET /stories/new
@@ -83,6 +127,6 @@ class StoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def story_params
-      params.require(:story).permit(:title, :column_id, :position, :description)
+      params.require(:story).permit(:title, :position, :description, :status, :due_date)
     end
 end

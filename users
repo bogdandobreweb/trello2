@@ -1,0 +1,4 @@
+email: "bogdan@gmail.com", password: "123123", role: "admin"
+email: "bgdbgd@gmail.com", password: "bgdbgd", role: "manager"
+email: "bgdbgd@gmail.com", password: "bgdbgd", role: "manager"
+email: "staff@gmail.com", password: "stafff", role: "staff"
